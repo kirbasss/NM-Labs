@@ -1,0 +1,10 @@
+^C:\USERS\KIRBASS\DESKTOP\PROGR\C++\CHISLAKI\LAB1\BUILD\CMAKEFILES\247F8984CEB2C855180C109472794356\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Kirbass/Desktop/PROGR/c++/chislaki/lab1 -BC:/Users/Kirbass/Desktop/PROGR/c++/chislaki/lab1/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/Kirbass/Desktop/PROGR/c++/chislaki/lab1/build/lab1.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -1,0 +1,8 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 3.15)
+
+PROJECT(lab1)
+
+INCLUDE_DIRECTORIES(include)
+
+ADD_EXECUTABLE(main main.cpp src/LU.cpp src/Matrix.cpp src/utils.cpp)
+TARGET_COMPILE_FEATURES(main PRIVATE cxx_std_23)
