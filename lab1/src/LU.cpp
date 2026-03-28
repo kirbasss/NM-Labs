@@ -188,7 +188,7 @@ void run_1_1(const std::string& inputFile) {
         }
         out << residual << " (должно быть близко к 0)\n";
 
-        std::cout << "Алгоритм 1.1 завершён. Результаты в " << outFile << "\n";
+        std::cout << "Алгоритм 1.1 (LU-разложение) завершён. Результаты в " << outFile << "\n";
         std::cout << "Лог: " << logFile << "\n";
 
     } catch (const std::exception& e) {
