@@ -9,6 +9,14 @@ Matrix::Matrix(size_t size) : n(size), data(size, std::vector<double>(size, 0.0)
 Matrix::Matrix(const std::vector<std::vector<double>>& d) 
     : n(d.size()), data(d) {}
 
+Matrix Matrix::identityMatrix(size_t n) {
+    Matrix I(n);
+    for (size_t i = 0; i < n; ++i) {
+        I(i, i) = 1.0;
+    }
+    return I;
+}
+
 double& Matrix::operator()(size_t i, size_t j) { return data[i][j]; }
 const double& Matrix::operator()(size_t i, size_t j) const { return data[i][j]; }
 

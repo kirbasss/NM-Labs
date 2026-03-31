@@ -12,6 +12,8 @@ public:
     Matrix(size_t size = 0);
     Matrix(const std::vector<std::vector<double>>& d);
 
+    static Matrix identityMatrix(size_t n);
+
     size_t size() const { return n; }
 
     double& operator()(size_t i, size_t j);
