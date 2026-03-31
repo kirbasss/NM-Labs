@@ -4,5 +4,5 @@ PROJECT(lab1)
 
 INCLUDE_DIRECTORIES(include)
 
-ADD_EXECUTABLE(main main.cpp src/LU.cpp src/Matrix.cpp src/utils.cpp)
+ADD_EXECUTABLE(main main.cpp src/LU.cpp src/Matrix.cpp src/utils.cpp src/Tridiagonal.cpp src/Iterative.cpp src/Jacobi.cpp src/QR.cpp)
 TARGET_COMPILE_FEATURES(main PRIVATE cxx_std_23)
