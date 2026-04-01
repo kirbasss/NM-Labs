@@ -209,6 +209,30 @@ void run_1_4(const std::string& inputFile) {
 
         out << "\n=== Проверка реконструкции ===\n";
         out << "||A - U * Lambda * U^T||_1 = " << reconError << "\n";
+    
+        // Проверка по определению: A u_i = lambda_i u_i
+        std::vector<double> eigenResiduals(n, 0.0);
+
+        for (size_t col = 0; col < n; ++col) {
+            double res = 0.0;
+
+            for (size_t i = 0; i < n; ++i) {
+                double Au_i = 0.0;
+                for (size_t j = 0; j < n; ++j) {
+                    Au_i += A(i, j) * result.eigenvectors(j, col);
+                }
+
+                double lambda_u_i = result.eigenvalues[col] * result.eigenvectors(i, col);
+                res += std::fabs(Au_i - lambda_u_i);
+            }
+
+            eigenResiduals[col] = res;
+        }
+
+        out << "\n=== Проверка по определению: ||A u_i - lambda_i u_i||_1 ===\n";
+        for (size_t i = 0; i < n; ++i) {
+            out << "i = " << i << ": " << eigenResiduals[i] << "\n";
+        }
 
         std::cout << "Алгоритм 1.4 (метод вращений) завершён. Результаты в " << outFile << '\n';
         std::cout << "Лог: " << logFile << "\n";
