@@ -211,7 +211,7 @@ std::pair<std::vector<double>, int> gaussSeidel(
         ++iter;
 
         if (alphaNorm < 1.0) {
-            double est = alphaNorm / (1.0 - alphaNorm) * diffNorm;
+            double est = alphaNorm / (1.0 - alphaNorm) * diffNorm; // можно брать норму верхнетреуг. матрицы C, тогда будет круче
             log << "Итерация " << iter
                 << ": ||x^(k)-x^(k-1)||_c = " << diffNorm
                 << ", оценка погрешности = " << est << '\n';
