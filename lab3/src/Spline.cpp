@@ -211,6 +211,14 @@ double evaluateSpline(const CubicSpline& spline,
     return value;
 }
 
+double evaluateSplineSegment(const CubicSplineSegment& seg, double x) {
+    double t = x - seg.xLeft;
+    return seg.a
+         + seg.b * t
+         + seg.c * t * t
+         + seg.d * t * t * t;
+}
+
 void run_3_2(const std::string& inputFile) {
     namespace fs = std::filesystem;
 
@@ -273,8 +281,47 @@ void run_3_2(const std::string& inputFile) {
         out << "x* = " << input.xStar << "\n";
         out << "S(x*) = " << splineValue << "\n";
 
+        // CSV с исходными точками
+        std::string csvFile = "output/" + base + ".csv";
+        std::ofstream csv(csvFile);
+        if (!csv) {
+            throw std::runtime_error("Не удалось создать файл " + csvFile);
+        }
+
+        csv << "x,y\n";
+        for (size_t i = 0; i < input.x.size(); ++i) {
+            csv << input.x[i] << "," << input.y[i] << "\n";
+        }
+        csv.close();
+
+        // CSV с точками сплайна
+        std::string splineFile = "output/" + base + "_spline.csv";
+        std::ofstream splineOut(splineFile);
+        if (!splineOut) {
+            throw std::runtime_error("Не удалось создать файл " + splineFile);
+        }
+
+        splineOut << "x,y\n";
+        double step = 0.01;
+
+        for (size_t i = 0; i < spline.segments.size(); ++i) {
+            const auto& seg = spline.segments[i];
+
+            for (double xi = seg.xLeft; xi < seg.xRight; xi += step) {
+                double val = evaluateSplineSegment(seg, xi);
+                splineOut << xi << "," << val << "\n";
+            }
+
+            double valRight = evaluateSplineSegment(seg, seg.xRight);
+            splineOut << seg.xRight << "," << valRight << "\n";
+        }
+
+        splineOut.close();
+
         std::cout << "Алгоритм 3.2 (кубический сплайн) завершён. Результаты в " << outFile << "\n";
         std::cout << "Лог: " << logFile << "\n";
+        std::cout << "CSV точки: " << csvFile << "\n";
+        std::cout << "CSV сплайн: " << splineFile << "\n";
 
     } catch (const std::exception& e) {
         log << "ОШИБКА: " << e.what() << "\n";
